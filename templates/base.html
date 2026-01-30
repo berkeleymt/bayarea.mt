@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en" class="bg-zinc-50">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  {% set permalink = section.permalink
+  | default(value=page.permalink
+  | default(value="")) %}
+
+  {% if permalink and permalink is not starting_with("/") %}
+  <link rel="canonical" href="{{ permalink | safe }}" />
+  {% endif %}
+
+  {% set title = section.title
+  | default(value=page.title
+  | default(value="Bay Area Math Tournament Group")) %}
+
+  <title>{{ title }}</title>
+  <meta name="og:title" content="{{ title }}" />
+
+  {% set description = section.description
+  | default(value=section.summary
+  | default(value=page.description
+  | default(value=page.summary
+  | default(value=""))))
+  | striptags
+  | split(pat="\n")
+  | join(sep=" ") %}
+
+  {% if description %}
+  <meta name="description" content="{{ description }}" />
+  <meta name="og:description" content="{{ description }}" />
+  {% endif %}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Bay Area Math Tournament Group" />
+
+  <link rel="preconnect" href="https://rsms.me/" />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <link rel="stylesheet" href="/style.css?{{ get_random(end=1000000) }}" />
+</head>
+
+<body class="overflow-y-scroll flex flex-col min-h-screen p-4 pt-8 md:p-8 md:pt-16">
+  <div class="w-full max-w-2xl flex-1 mx-auto flex flex-col gap-6">
+    <header class="flex flex-col md:flex-row gap-2 md:gap-4 md:justify-between items-center">
+      <a class="text-2xl font-semibold" href="/">Bay Area Math Tournament Group</a>
+    </header>
+
+    <div class="flex-1">
+      {% block content %}{% endblock %}
+    </div>
+
+    <div class="self-center flex flex-col items-center text-sm text-gray-500 text-center">
+        <p>&copy; 2026 Bay Area Math Tournament Group, a California nonprofit public benefit corporation.</p>
+        <p>BAMTG is exempt from federal income tax under section 501(c)(3) of the Internal Revenue Code.</p>
+        <p>Employer Identification Number: 86-1353440.</p>
+    </div>
+  </div>
+</body>
+
+</html>

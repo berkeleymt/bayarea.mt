@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --font-sans: Inter, sans-serif;
+    --font-serif: "EB Garamond", serif;
+}
+
+@supports (font-variation-settings: normal) {
+    @theme {
+        --font-sans: InterVariable, sans-serif;
+    }
+}
+
+@utility text-link {
+    text-decoration: inherit;
+    color: var(--color-zinc-800);
+    font-weight: 500;
+    box-shadow: inset 0 -0.4em var(--color-zinc-200);
+    transition: box-shadow 150ms ease-in-out;
+
+    &:hover {
+        box-shadow: inset 0 -0.6em var(--color-zinc-300);
+    }
+}
+
+@utility prose {
+    a {
+        @apply text-link;
+    }
+}
